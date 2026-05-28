@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Luxury Wedding Invitation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#050505;
+      color:white;
+      overflow-x:hidden;
+      font-family:'Montserrat',sans-serif;
+    }
+
+    section{
+      position:relative;
+    }
+
+    .reveal{
+      opacity:0;
+      transition:1.2s ease;
+    }
+
+    .reveal.active{
+      opacity:1 !important;
+      transform:translate(0,0) scale(1) !important;
+    }
+
+    .fade-in{
+      transform:scale(.9);
+    }
+
+    .slide-left{
+      transform:translateX(-120px);
+    }
+
+    .zoom-in{
+      transform:scale(.7);
+    }
+
+    .slide-up{
+      transform:translateY(120px);
+    }
+
+    .hero{
+      height:100vh;
+      background:
+      linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.65)),
+      url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1600&auto=format&fit=crop')
+      center/cover;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:20px;
+    }
+
+    .hero-content{
+      animation:fadeUp 1.5s ease;
+    }
+
+    .top-text{
+      letter-spacing:8px;
+      text-transform:uppercase;
+      color:#d0c3a5;
+      margin-bottom:25px;
+      font-size:12px;
+    }
+
+    .main-title{
+      font-family:'Cormorant Garamond',serif;
+      font-size:90px;
+      font-weight:300;
+      line-height:1;
+      margin-bottom:25px;
+    }
+
+    .sub-text{
+      max-width:700px;
+      margin:auto;
+      color:#d7d7d7;
+      line-height:1.9;
+      margin-bottom:40px;
+      font-size:16px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:18px 45px;
+      border:1px solid rgba(255,255,255,.4);
+      border-radius:50px;
+      color:white;
+      text-decoration:none;
+      letter-spacing:4px;
+      text-transform:uppercase;
+      transition:.4s ease;
+      backdrop-filter:blur(10px);
+    }
+
+    .btn:hover{
+      background:white;
+      color:black;
+      transform:scale(1.05);
+    }
+
+    #intro{
+      position:fixed;
+      inset:0;
+      background:black;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      z-index:99999;
+
+      animation:introHide 1.5s ease forwards;
+      animation-delay:3.5s;
+    }
+
+    .intro-content{
+      text-align:center;
+      animation:fadeUp 1.5s ease;
+    }
+
+    .logo-ring{
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.2);
+
+      margin:auto;
+      position:relative;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      animation:spin 8s linear infinite;
+    }
+
+    .logo-ring::before{
+      content:'';
+      position:absolute;
+      inset:10px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.4);
+    }
+
+    .rose-svg{
+      width:80px;
+      height:80px;
+      position:absolute;
+    }
+
+    .rose-svg path{
+      fill:transparent;
+      stroke:white;
+      stroke-width:1.5;
+
+      stroke-dasharray:600;
+      stroke-dashoffset:600;
+
+      animation:drawRose 4s ease forwards;
+    }
+
+    .intro-logo{
+      font-family:'Cormorant Garamond',serif;
+      font-size:60px;
+      font-weight:300;
+      margin-top:30px;
+      letter-spacing:3px;
+    }
+
+    .loading-text{
+      color:rgba(255,255,255,.6);
+      margin-top:10px;
+      letter-spacing:4px;
+      font-size:12px;
+      text-transform:uppercase;
+    }
+
+    .loading-bar{
+      width:240px;
+      height:2px;
+      background:rgba(255,255,255,.1);
+      margin:25px auto 0;
+      overflow:hidden;
+    }
+
+    .loading-bar span{
+      display:block;
+      width:0%;
+      height:100%;
+      background:white;
+
+      animation:loading 3s ease forwards;
+    }
+
+    .date-section{
+      padding:140px 20px;
+      text-align:center;
+      background:#0c0c0c;
+    }
+
+    .date-title{
+      font-family:'Cormorant Garamond',serif;
+      font-size:75px;
+      margin:20px 0;
+      font-weight:300;
+    }
+
+    .story{
+      min-height:100vh;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+    }
+
+    .story-image{
+      background:
+      url('https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1400&auto=format&fit=crop')
+      center/cover;
+    }
+
+    .story-content{
+      display:flex;
+      justify-content:center;
+      flex-direction:column;
+      padding:80px;
+      background:#050505;
+    }
+
+    .story-content h2{
+      font-family:'Cormorant Garamond',serif;
+      font-size:60px;
+      font-weight:300;
+      margin:25px 0;
+      line-height:1.1;
+    }
+
+    .story-content p{
+      color:#d4d4d4;
+      line-height:2;
+      font-size:15px;
+    }
+
+    .details{
+      padding:130px 20px;
+      text-align:center;
+      background:#0b0b0b;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+
+      max-width:1200px;
+      margin:70px auto 0;
+    }
+
+    .card{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      padding:50px 30px;
+      border-radius:30px;
+      backdrop-filter:blur(15px);
+
+      transition:.4s ease;
+    }
+
+    .card:hover{
+      transform:translateY(-10px);
+      background:rgba(255,255,255,.06);
+    }
+
+    .card h3{
+      font-family:'Cormorant Garamond',serif;
+      font-size:38px;
+      margin-bottom:20px;
+      font-weight:400;
+    }
+
+    .card p{
+      color:#d3d3d3;
+      line-height:1.9;
+    }
+
+    .countdown-section{
+      padding:120px 20px;
+      text-align:center;
+      background:#050505;
+    }
+
+    .countdown{
+      display:flex;
+      justify-content:center;
+      gap:25px;
+      flex-wrap:wrap;
+      margin-top:60px;
+    }
+
+    .time-box{
+      width:170px;
+      padding:40px 20px;
+      border-radius:30px;
+
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+
+      backdrop-filter:blur(15px);
+    }
+
+    .time-box span{
+      display:block;
+      font-size:60px;
+      font-family:'Cormorant Garamond',serif;
+      margin-bottom:10px;
+    }
+
+    .time-box small{
+      letter-spacing:3px;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.6);
+    }
+
+    .rsvp-section{
+      padding:120px 20px;
+      text-align:center;
+      background:#080808;
+    }
+
+    .rsvp-form{
+      max-width:700px;
+      margin:60px auto;
+
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+    }
+
+    .rsvp-form input,
+    .rsvp-form textarea{
+
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+
+      border-radius:20px;
+      padding:20px;
+
+      color:white;
+      font-size:15px;
+      outline:none;
+
+      backdrop-filter:blur(10px);
+    }
+
+    .rsvp-form textarea{
+      min-height:150px;
+      resize:none;
+    }
+
+    .rsvp-form button,
+    .map-btn{
+
+      padding:18px;
+      border-radius:50px;
+      border:none;
+
+      background:white;
+      color:black;
+
+      cursor:pointer;
+      font-weight:500;
+
+      letter-spacing:3px;
+      text-transform:uppercase;
+
+      text-decoration:none;
+
+      transition:.4s ease;
+      display:inline-block;
+    }
+
+    .rsvp-form button:hover,
+    .map-btn:hover{
+      transform:scale(1.05);
+    }
+
+    .wishes-container{
+      max-width:900px;
+      margin:70px auto 0;
+
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+    }
+
+    .wish-card{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+
+      border-radius:25px;
+      padding:30px;
+
+      text-align:left;
+      animation:fadeUp 1s ease;
+    }
+
+    .wish-card h3{
+      margin-bottom:10px;
+      font-family:'Cormorant Garamond',serif;
+      font-size:35px;
+      font-weight:400;
+    }
+
+    .wish-card p{
+      color:#d0d0d0;
+      line-height:1.9;
+    }
+
+    .location-section{
+      padding:120px 20px;
+      text-align:center;
+      background:#050505;
+    }
+
+    .ending{
+      height:90vh;
+
+      background:
+      linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
+      url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop')
+      center/cover;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:20px;
+    }
+
+    .ending h2{
+      font-family:'Cormorant Garamond',serif;
+      font-size:70px;
+      font-weight:300;
+      margin-bottom:30px;
+      line-height:1.2;
+    }
+
+    .music-btn{
+      position:fixed;
+      bottom:20px;
+      right:20px;
+
+      width:60px;
+      height:60px;
+
+      border-radius:50%;
+      border:none;
+
+      background:rgba(255,255,255,.15);
+      color:white;
+
+      backdrop-filter:blur(10px);
+
+      cursor:pointer;
+      font-size:20px;
+      z-index:999;
+    }
+
+    @keyframes fadeUp{
+      from{
+        opacity:0;
+        transform:translateY(50px);
+      }
+
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    @keyframes introHide{
+      to{
+        opacity:0;
+        visibility:hidden;
+      }
+    }
+
+    @keyframes loading{
+      to{
+        width:100%;
+      }
+    }
+
+    @keyframes spin{
+      from{
+        transform:rotate(0deg);
+      }
+
+      to{
+        transform:rotate(360deg);
+      }
+    }
+
+    @keyframes drawRose{
+      to{
+        stroke-dashoffset:0;
+      }
+    }
+
+    @media(max-width:900px){
+
+      .story{
+        grid-template-columns:1fr;
+      }
+
+      .story-image{
+        min-height:400px;
+      }
+
+      .main-title{
+        font-size:58px;
+      }
+
+      .date-title,
+      .ending h2,
+      .story-content h2{
+        font-size:45px;
+      }
+
+      .story-content{
+        padding:60px 25px;
+      }
+
+      .intro-logo{
+        font-size:42px;
+      }
+
+      .time-box{
+        width:140px;
+      }
+
+      .time-box span{
+        font-size:45px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div id="intro">
+
+    <div class="intro-content">
+
+      <div class="logo-ring">
+
+        <svg class="rose-svg" viewBox="0 0 200 200">
+
+          <path d="M100 170 C40 130 35 70 80 50 C95 42 110 48 118 60 C125 35 150 30 165 48 C185 72 170 120 100 170Z" />
+
+        </svg>
+
+      </div>
+
+      <h1 class="intro-logo">Mosha Studio</h1>
+
+      <p class="loading-text">Preparing Your Experience...</p>
+
+      <div class="loading-bar">
+        <span></span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <p class="top-text">Luxury Wedding Invitation</p>
+
+      <h1 class="main-title">
+        Ahmed <br>&<br> Salma
+      </h1>
+
+      <p class="sub-text">
+        We invite you to celebrate the beginning of our forever and share with us a night full of love elegance and unforgettable memories.
+      </p>
+
+      <a href="#details" class="btn">Open Invitation</a>
+
+    </div>
+
+  </section>
+
+  <section class="date-section reveal fade-in active">
+
+    <p class="top-text">Save The Date</p>
+
+    <h2 class="date-title">18 . 09 . 2026</h2>
+
+    <p class="sub-text">
+      A magical night where two hearts become one.
+    </p>
+
+  </section>
+
+  <section class="story reveal slide-left active">
+
+    <div class="story-image"></div>
+
+    <div class="story-content">
+
+      <p class="top-text">Our Story</p>
+
+      <h2>
+        It all started with a simple hello.
+      </h2>
+
+      <p>
+        Through every laugh every late night conversation and every beautiful memory we discovered that home was never a place but a person.
+      </p>
+
+    </div>
+
+  </section>
+
+  <section class="details reveal zoom-in active" id="details">
+
+    <p class="top-text">Event Details</p>
+
+    <h2 class="date-title">Grand Celebration</h2>
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>Date</h3>
+        <p>
+          Friday <br>
+          September 18 2026
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Venue</h3>
+        <p>
+          Royal Garden Hall <br>
+          Mansoura Egypt
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Time</h3>
+        <p>
+          Reception Starts <br>
+          7:00 PM
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="countdown-section">
+
+    <p class="top-text">Countdown To Forever</p>
+
+    <div class="countdown" id="countdown">
+
+      <div class="time-box">
+        <span id="days">00</span>
+        <small>Days</small>
+      </div>
+
+      <div class="time-box">
+        <span id="hours">00</span>
+        <small>Hours</small>
+      </div>
+
+      <div class="time-box">
+        <span id="minutes">00</span>
+        <small>Minutes</small>
+      </div>
+
+      <div class="time-box">
+        <span id="seconds">00</span>
+        <small>Seconds</small>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="rsvp-section">
+
+    <p class="top-text">RSVP & Wishes</p>
+
+    <h2 class="date-title">Leave Your Wishes</h2>
+
+    <div class="rsvp-form">
+
+      <input type="text" id="guestName" placeholder="Your Name">
+
+      <textarea id="guestMessage" placeholder="Write your message..."></textarea>
+
+      <button onclick="addWish()">Send Wish</button>
+
+    </div>
+
+    <div class="wishes-container" id="wishesContainer"></div>
+
+  </section>
+
+  <section class="location-section">
+
+    <p class="top-text">Wedding Location</p>
+
+    <h2 class="date-title">Find Us Easily</h2>
+
+    <a class="map-btn" href="https://www.google.com/maps?q=Mansoura+Egypt" target="_blank">
+      Open Google Maps
+    </a>
+
+  </section>
+
+  <section class="ending reveal slide-up active">
+
+    <div>
+
+      <p class="top-text">Join Us</p>
+
+      <h2>
+        We can’t wait <br>
+        to celebrate with you.
+      </h2>
+
+      <a href="#" class="btn">Confirm Attendance</a>
+
+    </div>
+
+  </section>
+
+  <button class="music-btn" onclick="toggleMusic()">♫</button>
+
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mp3">
+  </audio>
+
+  <script>
+
+    const music = document.getElementById('bgMusic')
+
+    function toggleMusic(){
+
+      if(music.paused){
+        music.play()
+      }else{
+        music.pause()
+      }
+
+    }
+
+    const weddingDate = new Date('Sep 18, 2026 19:00:00').getTime()
+
+    const countdown = setInterval(() => {
+
+      const now = new Date().getTime()
+
+      const distance = weddingDate - now
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24))
+
+      const hours = Math.floor(
+      (distance % (1000 * 60 * 60 * 24))
+      / (1000 * 60 * 60))
+
+      const minutes = Math.floor(
+      (distance % (1000 * 60 * 60))
+      / (1000 * 60))
+
+      const seconds = Math.floor(
+      (distance % (1000 * 60))
+      / 1000)
+
+      document.getElementById('days').innerHTML = days
+      document.getElementById('hours').innerHTML = hours
+      document.getElementById('minutes').innerHTML = minutes
+      document.getElementById('seconds').innerHTML = seconds
+
+    },1000)
+
+function addWish(){
+  const name = document.getElementById('guestName').value;
+  const message = document.getElementById('guestMessage').value;
+
+  if(name.trim() === '' || message.trim() === '') return;
+
+  // الرابط بتاعك جوه الدالة عشان يشتغل علطول
+  const API_URL = "https://script.google.com/macros/s/AKfycbzxrNtqdRautww490bD-9PbYE6I1sm05rnZuozl6G16W4WhuO62So6wNMc_Zh_zATYx/exec";
+
+  const data = {
+    name: name,
+    message: message
+  };
+
+  // أمر إرسال التهنئة لجوجل شيت
+  fetch(API_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(() => {
+    console.log("Sent successfully!");
+  })
+  .catch(error => {
+    console.error("Error:", error);
+  });
+
+  // كود عرض الكومنت في الموقع بتاعك
+  const container = document.getElementById('wishesContainer');
+  const card = document.createElement('div');
+  card.classList.add('wish-card');
+  card.innerHTML = `
+    <h3>${name}</h3>
+    <p>${message}</p>
+  `;
+  container.prepend(card);
+
+  // تفريغ الخانات
+  document.getElementById('guestName').value = '';
+  document.getElementById('guestMessage').value = '';
+}
+
+  </script>
+
+</body>
+</html>
